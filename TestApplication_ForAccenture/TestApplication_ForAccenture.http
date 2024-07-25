@@ -1,0 +1,6 @@
+@TestApplication_ForAccenture_HostAddress = http://localhost:5168
+
+GET {{TestApplication_ForAccenture_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
