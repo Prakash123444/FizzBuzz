@@ -15,25 +15,26 @@ namespace TestApplication_ForAccenture.Controllers
         }
 
         [HttpGet]
-        public string CheckFizzBuzz(string Number)
+        public string CheckFizzBuzz(string? Number)
         {
-
-            //var fizzRule = FizzBuzzFactory.CheckLogic("Fizz");
-            //var buzzRule = FizzBuzzFactory.CheckLogic("Buzz");
-            //var fizzbuzzRule = FizzBuzzFactory.CheckLogic("FizzBuzz");
-            //var processor = new FizzBuzzProcessor(new List<ITest> { fizzbuzzRule,fizzRule, buzzRule });
-            //return processor.DoProcess(Number);
-            if (int.TryParse(Number, out _))
+            try
             {
-                int Value = int.Parse(Number);
-                ITest obj = _fizzBuzzFactory.CheckLogic(Value);
-                if (obj != null)
-                    return obj.CheckFizzBuzz(Value);
+                if (int.TryParse(Number, out _))
+                {
+                    int Value = int.Parse(Number);
+                    ITest testobj = _fizzBuzzFactory.CheckLogic(Value);
+                    if (testobj != null)
+                        return testobj.CheckFizzBuzz(Value);
+                    else
+                        return "Divided " + Number.ToString() + " by 3 \n" + "Divided " + Number.ToString() + " by 5";
+                }
                 else
-                    return "Divided " + Number.ToString() + " by 3 \n" + "Divided " + Number.ToString() + " by 5";
+                    return "Invalid Item";
             }
-            else
+            catch (Exception ex)
+            {
                 return "Invalid Item";
+            }
         }
     }
 }

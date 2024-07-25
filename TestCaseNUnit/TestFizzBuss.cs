@@ -20,10 +20,7 @@ namespace TestCaseNUnit
         public void Test_Fizz()
         {
             var expectedResult = "Fizz";
-            var res = new TestFizz()
-            {
-
-            };
+            var res = new TestFizz();
             mockRepo.Setup(repo => repo.CheckLogic(It.IsAny<int>())).Returns(res);
             var result = testController.CheckFizzBuzz("3");
             Assert.AreEqual(expectedResult, result);
