@@ -14,26 +14,31 @@ namespace TestApplication_ForAccenture.Controllers
             _fizzBuzzFactory = fizzBuzzFactory;
         }
 
-        [HttpGet]
-        public string CheckFizzBuzz(string? Number)
+        [HttpGet("CheckFizzBuzz")]
+        public List<string> CheckFizzBuzz([FromQuery] List<string> lstNumber)
         {
             try
             {
-                if (int.TryParse(Number, out _))
+                List<string> response=new List<string>();
+                foreach (var number in lstNumber)
                 {
-                    int Value = int.Parse(Number);
-                    ITest testobj = _fizzBuzzFactory.CheckLogic(Value);
-                    if (testobj != null)
-                        return testobj.CheckFizzBuzz(Value);
+                    if (int.TryParse(number, out _))
+                    {
+                        int Value = int.Parse(number);
+                        ITest testobj = _fizzBuzzFactory.CheckLogic(Value);
+                        if (testobj != null)
+                            response.Add( testobj.CheckFizzBuzz(Value));
+                        else
+                            response.Add("Divided " + number.ToString() + " by 3 \n" + "Divided " + number.ToString() + " by 5");
+                    }
                     else
-                        return "Divided " + Number.ToString() + " by 3 \n" + "Divided " + Number.ToString() + " by 5";
+                        response.Add("Invalid Item");
                 }
-                else
-                    return "Invalid Item";
+                return response;
             }
             catch (Exception ex)
             {
-                return "Invalid Item";
+                return null;
             }
         }
     }
