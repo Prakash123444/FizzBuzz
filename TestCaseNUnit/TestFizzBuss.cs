@@ -19,68 +19,58 @@ namespace TestCaseNUnit
         [Test]
         public void Test_Fizz()
         {
-            var expectedResult = "Fizz";
+            var expectedResult = new List<string> { "Fizz" };
             var res = new TestFizz();
+            var input = new List<string> { "3" };
             mockRepo.Setup(repo => repo.CheckLogic(It.IsAny<int>())).Returns(res);
-            var result = testController.CheckFizzBuzz("3");
+            var result = testController.CheckFizzBuzz(input);
             Assert.AreEqual(expectedResult, result);
         }
 
         [Test]
         public void Test_FizzBuzz()
         {
-            var expectedResult = "FizzBuzz";
+            var expectedResult = new List<string> { "FizzBuzz" };
             var res = new TestFizzBuzz();
+            var input = new List<string> { "15" };
             mockRepo.Setup(repo => repo.CheckLogic(It.IsAny<int>())).Returns(res);
-            var result = testController.CheckFizzBuzz("15");
+            var result = new List<string>();
+            result= testController.CheckFizzBuzz(input);
             Assert.AreEqual(expectedResult, result);
         }
         [Test]
         public void Test_Buzz()
-        {
-            var expectedResult = "Buzz";
+        { 
+            var expectedResult = new List<string> { "Invalid Item", "Buzz" };
             var res = new TestBuzz(); 
+            var input = new List<string> { "A", "5" };
             mockRepo.Setup(repo => repo.CheckLogic(It.IsAny<int>())).Returns(res);
-            var result= testController.CheckFizzBuzz("5");
+            var result = new List<string>();
+            result = testController.CheckFizzBuzz(input);
             Assert.AreEqual(expectedResult, result);
         }
         [Test]
         public void Test_String_InvalidItem()
-        {
-            var expectedResult = "Invalid Item";
-            var res = new TestBuzz();
+        { 
+            var expectedResult = new List<string> { "Invalid Item", "Invalid Item" };
+            var res = new TestBuzz(); 
+            var input = new List<string> { "A", "" };
             mockRepo.Setup(repo => repo.CheckLogic(It.IsAny<int>())).Returns(res);
-            var result = testController.CheckFizzBuzz("A");
+            var result = new List<string>();
+            result = testController.CheckFizzBuzz(input);
             Assert.AreEqual(expectedResult, result);
-        }
-        [Test]
-        public void Test_EmptyString_InvalidItem()
-        {
-            var expectedResult = "Invalid Item";
-            var res = new TestBuzz();
-            mockRepo.Setup(repo => repo.CheckLogic(It.IsAny<int>())).Returns(res);
-            var result = testController.CheckFizzBuzz("");
-            Assert.AreEqual(expectedResult, result);
-        }
-        [Test]
-        public void Test_Null_InvalidItem()
-        {
-            var expectedResult = "Invalid Item";
-            var res = new TestBuzz();
-            mockRepo.Setup(repo => repo.CheckLogic(It.IsAny<int>())).Returns(res);
-            var result = testController.CheckFizzBuzz(null);
-            Assert.AreEqual(expectedResult, result);
-        }
+             
+        } 
         [Test]
         public void Test_DividedByOtherScenerio()
-        {
-            string input = "23";
-            var expectedResul = "Divided "+input+" by 3 \n"+ "Divided " + input + " by 5";
-
+        { 
+            var expectedResult = new List<string> { "Divided 1 by 3 \nDivided 1 by 5", "Divided 23 by 3 \nDivided 23 by 5" }; 
+            var input = new List<string> { "1", "23" };
             ITest? res = null;
             mockRepo.Setup(repo => repo.CheckLogic(It.IsAny<int>())).Returns(res);
-            var result = testController.CheckFizzBuzz(input);
-            Assert.AreEqual(expectedResul, result);
+            var result = new List<string>();
+            result = testController.CheckFizzBuzz(input);
+            Assert.AreEqual(expectedResult, result);
         }
     }
 }
